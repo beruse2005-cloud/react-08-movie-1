@@ -4,7 +4,6 @@ import styles from "./Detail.module.css";
 
 function Detail() {
     const navigate = useNavigate();
-
     const { id } = useParams();
 
     const [movie, setMovie] = useState(null);
@@ -21,7 +20,7 @@ function Detail() {
     }
 
     return (
-        <div>
+        <div className={styles.container}>
             <button
                 className={styles.backBtn}
                 onClick={() => {
@@ -30,14 +29,15 @@ function Detail() {
                 &larr; Back
             </button>
 
-            {/* OMDb API 응답 구조에 맞게 수정 */}
-            <h2>{movie.Title}</h2>
-
+            {/* 1. 포스터 이미지를 제목보다 위로 배치 */}
             {movie.Poster !== "N/A" ? (
                 <img className={styles.cover} src={movie.Poster} alt={movie.Title} />
             ) : (
                 <div className={styles.no_cover}>No Cover</div>
             )}
+
+            {/* 2. 제목을 포스터 아래로 배치 */}
+            <h2>{movie.Title}</h2>
 
             <p>
                 <strong>Year:</strong> {movie.Year}

@@ -3,33 +3,27 @@
 }
 
 .backBtn {
-    display: flex;
-    align-items: center;
-    padding: 8px 14px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-    background-color: #f3f3f3;
-    color: #333;
+    display: block;
+    margin-bottom: 20px;
+    background: none;
+    border: none;
+    color: #ff5959;
+    font-size: 16px;
     cursor: pointer;
-    transition: all 0.5s;
+    padding: 0;
 }
 
 .backBtn:hover {
-    background-color: #e0e0e0;
-    border-color: #999;
+    text-decoration: underline;
 }
 
 .cover {
-    width: 200px;
-    height: 300px;
-    border-radius: 8px;
-    margin-bottom: 20px;
+    width: 240px;
+    border-radius: 12px;
 }
 
 .no_cover {
-    width: 200px;
-    height: 300px;
-    border-radius: 8px;
-    margin-bottom: 20px;
+    width: 240px;
+    border-radius: 12px;
     background-color: #f3f3f3;
 }
