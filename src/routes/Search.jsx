@@ -20,16 +20,22 @@ function Search() {
 
         fetch(`https://www.omdbapi.com/?apikey=6a0a8eb4&s=${k}`)
             .then(res => res.json())
-            .then(json => setList(json))
+            .then(json => {
+                if (json.Response === "True") {
+                    setList(json.Search);
+                } else {
+                    setList([]);
+                }
+            })
             .catch(err => console.log(err))
             .finally(() => setLoading(false));
-    }, []);
+    }, [k]);
 
     return (
         <div className={styles.container}>
             <h2>검색 키워드 : {k}</h2>
 
-            <SearchBar />
+            <SearchBar keyword={k} />
 
             {loading ? (
                 <div className={styles.message}>로딩 중입니다...</div>
@@ -38,20 +44,19 @@ function Search() {
             ) : (
                 list.map((item, index) => {
                     return (
-                        <Link key={index} to={`/detail/${item.id}`} className={styles.movie}>
-                            {item.volumeInfo.imageLinks ? (
-                                <img
-                                    className={styles.cover}
-                                    src={item.volumeInfo.imageLinks.thumbnail}
-                                    alt={item.volumeInfo.title}
-                                />
+                        // OMDb API의 고유 ID는 item.imdbID 입니다.
+                        <Link key={item.imdbID} to={`/detail/${item.imdbID}`} className={styles.movie}>
+                            {/* 포스터가 존재하지 않거나 N/A인 경우 처리 */}
+                            {item.Poster !== "N/A" ? (
+                                <img className={styles.cover} src={item.Poster} alt={item.Title} />
                             ) : (
                                 <div className={styles.no_cover}>No Cover</div>
                             )}
 
                             <div>
-                                <div className={styles.title}>{item.volumeInfo.title}</div>
-                                <div className={styles.authors}>{item.volumeInfo.authors?.join(", ")}</div>
+                                {/* OMDb API 속성(Title, Year)으로 변경 */}
+                                <div className={styles.title}>{item.Title}</div>
+                                <div className={styles.authors}>{item.Year}</div>
                             </div>
                         </Link>
                     );
